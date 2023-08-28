@@ -30,6 +30,8 @@ export function Home() {
                         name="CycleDuration"
                         id="CycleDuration"
                         placeholder="28 dias..."
+                        min={21}
+                        max={45}
                         />
                     </InputContainer>
 
@@ -40,6 +42,8 @@ export function Home() {
                         id="flowDuration"
                         name="flowDuration"
                         placeholder="5 dias..."
+                        min={1}
+                        max={14}
                         />
                     </InputContainer>
 
