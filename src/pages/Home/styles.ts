@@ -8,27 +8,11 @@ export const HomeContainer = styled.div`
   justify-content: center;
   gap: 5rem;
 
-  input[type='text']{
-    background: ${(props) => props.theme['gray-light']};
-    color: ${(props) => props.theme['white']};
-    border: 0;
-    width: 50%;
-    height: 3.125rem;
-    border-radius: 8px; 
-    padding: 1.25rem;
-    font-size: 1rem;
-    outline: none;
-  }
-
-  input[type='text']::placeholder {
-    color: ${(props) => props.theme['gray-opacity']};
-  }
-
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3.5rem;
+    gap: 2.5rem;
   }
 
   button {
@@ -59,22 +43,60 @@ export const TitleContainer = styled.div`
 
 `
 
+export const InputText = styled.input`
+
+  background: transparent;
+  height: 2.5rem;
+  border: 0;
+  border-bottom: 2px solid ${(props) => props.theme['main-color']};
+  font-weight: bold;
+  font-size: inherit;
+  padding: 0 0.5rem;
+  color: ${(props) => props.theme['white']};
+  outline: 0;
+
+  &:focus {
+    border-color: ${(props) => props.theme['main-color']};
+  }
+
+  &::placeholder {
+    color: ${(props) => props.theme['gray-300']};
+  }
+`
+
 export const FormContainer = styled.div`
-    input {
-        margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 20px;
+`
+
+
+export const InputContainer = styled.div`
+   text-align: center;
+   margin-right: 10px;
+
+  input {
         padding: 20px;
         background: ${(props) => props.theme['main-color']};
         color: ${(props) => props.theme['white']};
         border: 0;
         outline: none;
         border-radius: 8px;
-        width: 12.5;
+        width: 100%;
         height: 3.125rem;
         font-size: 1rem;
     }
 
     input::placeholder {
-    color: ${(props) => props.theme['gray-opacity']};
+    color: ${(props) => props.theme['white']};
+    opacity: 50%;
   }
-    
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+}
+
 `

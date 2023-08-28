@@ -1,4 +1,4 @@
-import { FormContainer, HomeContainer, TitleContainer } from "./styles";
+import { FormContainer, HomeContainer, InputContainer, InputText, TitleContainer } from "./styles";
 
 export function Home() {
     return (
@@ -8,11 +8,41 @@ export function Home() {
                 <span> MoonFlow Calendar!</span>
             </TitleContainer>
             <form>
-                <input type="text" id="name" placeholder="Digite seu nome..."/>
+                <InputText 
+                type="text" 
+                id="name" 
+                placeholder="Digite seu nome..."
+                />
                 <FormContainer>
-                    <input type="date" id="lastCycle" />
-                    <input type="number" id="CycleDuration" placeholder="Duração do ciclo..." />
-                    <input type="number" id="flowDuration" placeholder="Duração do fluxo..." />
+                    <InputContainer>
+                        <label htmlFor="lastCycle">Quando foi sua última menstruação?</label>
+                    <input 
+                    type="date" 
+                    name="lastCycle" 
+                    id="lastCycle"
+                    />
+                    </InputContainer>
+
+                    <InputContainer>
+                        <label htmlFor="CycleDuration">Duração média do ciclo (dias)</label>
+                        <input
+                        type="number"
+                        name="CycleDuration"
+                        id="CycleDuration"
+                        placeholder="28 dias..."
+                        />
+                    </InputContainer>
+
+                    <InputContainer>
+                        <label htmlFor="flowDuration">Quantos dias ela durou?</label>
+                        <input
+                        type="number"
+                        id="flowDuration"
+                        name="flowDuration"
+                        placeholder="5 dias..."
+                        />
+                    </InputContainer>
+
                 </FormContainer>
                 <button type="submit">
                     Calcular ciclo
