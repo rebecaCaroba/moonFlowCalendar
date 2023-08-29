@@ -1,4 +1,5 @@
-import { CalendarContainer, CalendarContent, CycleContainer, InfoCycle, MoonContainer } from "./styles";
+import { Calendar } from "../../components/Calendar";
+import { CalendarContainer, CycleContainer, InfoCycle, MoonContainer } from "./styles";
 
 export function MoonFlow() {
     return (
@@ -15,7 +16,7 @@ export function MoonFlow() {
                 </CycleContainer>
             </div>
             <div>
-                <CalendarContent>Calendario</CalendarContent>
+                <Calendar />
             </div>
         </CalendarContainer>
     )

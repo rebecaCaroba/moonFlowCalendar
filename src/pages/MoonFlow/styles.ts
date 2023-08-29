@@ -58,9 +58,3 @@ export const InfoCycle = styled.div`
         font-size: 3rem;
     }
 `
-
-export const CalendarContent = styled.div`
-    background: ${(props) => props.theme['gray-400']};
-    width: 400px;
-    height: 400px;
-`
