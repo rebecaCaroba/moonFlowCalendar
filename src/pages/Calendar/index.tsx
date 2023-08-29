@@ -4,9 +4,11 @@ export function Calendar() {
     return (
         <CalendarContainer>
             <div>
-                <button>Editar ciclo</button>
                 <CycleContainer>
-                    <InfoCycle><span>9 </span>dias até a menstruação</InfoCycle>
+                <button>Editar ciclo</button>
+                    <InfoCycle>
+                        <span>9</span>dias até a menstruação
+                    </InfoCycle>
                     <MoonContainer></MoonContainer>
                 </CycleContainer>
             </div>

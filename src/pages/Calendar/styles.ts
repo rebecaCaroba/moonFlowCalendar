@@ -4,17 +4,26 @@ export const CalendarContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin: 3rem 0;
+    margin: 1rem 0;
 
     button {
         background: transparent;
         border: 5px solid ${(props) => props.theme['main-color']};
         color: ${(props) => props.theme['white']};
+        width: 150px;
+        height: 50px;
+        border-radius: 40px;
+        font-weight: 700;
+        cursor: pointer;
     }
 `
 
 export const CycleContainer = styled.div`
     display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3rem;
     position: relative;
 `
 
@@ -35,7 +44,7 @@ export const InfoCycle = styled.div`
     width: 190px;
     height: 190px;
     border-radius: 100%;
-    top: 10%;
+    top: 30%;
     left: -10%;
 
     span {
