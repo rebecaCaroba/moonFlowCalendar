@@ -10,11 +10,17 @@ export const CalendarContainer = styled.div`
         background: transparent;
         border: 5px solid ${(props) => props.theme['main-color']};
         color: ${(props) => props.theme['white']};
-        width: 150px;
-        height: 50px;
         border-radius: 40px;
+        padding: 0.938rem;
         font-weight: 700;
         cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    button:hover{
+        background: ${(props) => props.theme['main-color']};
+        transition: 0.3s;
     }
 `
 

@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Calendar } from "./pages/Calendar";
+import { MoonFlow } from "./pages/MoonFlow";
 import { Home } from "./pages/Home";
 import { DefaultLayout } from "./Layout/DefaultLayout";
 
@@ -8,7 +8,7 @@ export function Router() {
         <Routes>
         <Route path="/" element={<DefaultLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/moonflow" element={<MoonFlow />} />
         </Route>
       </Routes>
     )
