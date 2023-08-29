@@ -60,7 +60,7 @@ export const InputText = styled.input`
   }
 
   &::placeholder {
-    color: ${(props) => props.theme['gray-300']};
+    color: ${(props) => props.theme['gray-400']};
   }
 `
 
