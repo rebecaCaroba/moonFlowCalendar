@@ -27,6 +27,10 @@ export const HomeContainer = styled.div`
         font-weight: 700;
         cursor: pointer;
     }
+    button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
 `
 
 export const TitleContainer = styled.div`
