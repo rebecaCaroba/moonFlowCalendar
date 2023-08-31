@@ -1,24 +1,18 @@
-import { useState } from "react";
-import { Header, CalendarWrapper, Body, WeeksGrid } from "./styles";
-import { BsChevronLeft } from 'react-icons/bs';
-import { BsChevronRight } from 'react-icons/bs';
-import { MONTH_NAMES } from "../../const";
+import Calendar from "react-calendar"
+import { useState } from 'react'
+import 'react-calendar/dist/Calendar.css'
 
+type ValuePiece = Date | null;
 
-export function Calendar() {
-    const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-    const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+type Value = ValuePiece | [ValuePiece, ValuePiece]
+
+export function CalendarApp() {
+    const [value, onChange] = useState<Value>(new Date())
 
     return (
-        <CalendarWrapper>
-            <Header>
-                <BsChevronLeft />
-                <span>{MONTH_NAMES[currentMonth]}</span>
-                <BsChevronRight />
-            </Header>
-            <Body>
-                <WeeksGrid></WeeksGrid>
-            </Body>
-        </CalendarWrapper>
+        <Calendar 
+        onChange={onChange} 
+        value={value} 
+        />
     )
 }

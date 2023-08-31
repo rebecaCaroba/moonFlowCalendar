@@ -6,19 +6,23 @@ export const CalendarContainer = styled.div`
     justify-content: space-around;
     margin: 1rem 0;
 
-    button {
-        background: transparent;
-        border: 5px solid ${(props) => props.theme['main-color']};
-        color: ${(props) => props.theme['white']};
-        border-radius: 40px;
-        padding: 0.938rem;
-        font-weight: 700;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-    }
 
-    button:hover{
+        
+`
+
+export const MenstruationRecorderBtn = styled.button`
+    background: transparent;
+    border: 5px solid ${(props) => props.theme['main-color']};
+    color: ${(props) => props.theme['white']};
+    border-radius: 40px;
+    padding: 0.938rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+
+
+    &:hover{
         background: ${(props) => props.theme['main-color']};
         transition: 0.3s;
     }
