@@ -1,7 +1,8 @@
-import { FormContainer, HomeContainer, InputContainer, InputText, TitleContainer } from "./styles";
+import { FormContainer, HomeContainer, InputContainer, TitleContainer } from "./styles";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from "react";
 
 const newCycleFormValidationSchema = zod.object({
     Username: zod.string().min(1, 'Infome seu nome'),
@@ -16,18 +17,44 @@ const newCycleFormValidationSchema = zod.object({
     .max(10, 'A duração do fluxo deve ter no máximo 10 dias'),
 })
 
+type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
+
+interface Cycle {
+    lastCycle: Date     
+    CycleDuration: number
+    flowDuration: number
+  }
+
+  const initialValues = {
+    lastCycle: new Date(),
+    CycleDuration: 0,
+    flowDuration: 0,
+  }
+
+
 export function Home() {
-    const {register, handleSubmit, watch} = useForm({
+    const [cycles, setCyles] = useState<Cycle[]>([])
+
+    const {register, handleSubmit, watch, reset} = useForm<NewCycleFormData>({
         resolver: zodResolver(newCycleFormValidationSchema),
+        defaultValues: initialValues
     })
 
-    function handleCreateNewCycle(data: any){
-        console.log(data)
+    
+    function handleCreateNewCycle(data: NewCycleFormData){
+        const newCycle: Cycle = {
+            lastCycle: data.lastCycle,
+            CycleDuration: data.CycleDuration,
+            flowDuration: data.flowDuration
+        }
+        setCyles((state) => [...state, newCycle])
+        reset()
+        console.log(newCycle)
     }
 
-    const Username = watch('Username')
+    const CycleDuration = watch('CycleDuration')
 
-    const isSubmitDisabled = !Username
+    const isSubmitDisabled = !CycleDuration
 
     return (
         <HomeContainer>
@@ -36,12 +63,6 @@ export function Home() {
                 <span> MoonFlow Calendar!</span>
             </TitleContainer>
             <form onSubmit={handleSubmit(handleCreateNewCycle)}>
-                <InputText 
-                type="text" 
-                id="Username" 
-                placeholder="Digite seu nome..."
-                {...register('Username')}
-                />
                 <FormContainer>
                     <InputContainer>
                     <label htmlFor="lastCycle">Quando foi sua última menstruação?</label>
