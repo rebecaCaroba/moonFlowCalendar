@@ -3,57 +3,61 @@ import { useForm } from "react-hook-form";
 import * as zod from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from "react";
+import { addDays, format } from "date-fns";
 
 const newCycleFormValidationSchema = zod.object({
-    Username: zod.string().min(1, 'Infome seu nome'),
     lastCycle: zod.date(),
     CycleDuration: zod
-    .number()
-    .min(21, 'A duração do ciclo deve ter no mínimo 21 dias')
-    .max(45, 'A duração do ciclo deve ter no máximo 45 dias'),
+        .number()
+        .min(21, 'A duração do ciclo deve ter no mínimo 21 dias')
+        .max(45, 'A duração do ciclo deve ter no máximo 45 dias'),
     flowDuration: zod
-    .number()
-    .min(1, 'A duração do fluxo deve ter no mínimo 1 dias')
-    .max(10, 'A duração do fluxo deve ter no máximo 10 dias'),
+        .number()
+        .min(1, 'A duração do fluxo deve ter no mínimo 1 dias')
+        .max(10, 'A duração do fluxo deve ter no máximo 10 dias'),
 })
 
 type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
 
 interface Cycle {
-    lastCycle: Date     
+    lastCycle: Date
     CycleDuration: number
     flowDuration: number
-  }
-
-  const initialValues = {
-    lastCycle: new Date(),
-    CycleDuration: 0,
-    flowDuration: 0,
-  }
-
+}
 
 export function Home() {
-    const [cycles, setCyles] = useState<Cycle[]>([])
+    const [cycles, setCycles] = useState<Cycle[]>([])
 
-    const {register, handleSubmit, watch, reset} = useForm<NewCycleFormData>({
+    const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
         resolver: zodResolver(newCycleFormValidationSchema),
-        defaultValues: initialValues
+        defaultValues: {
+            lastCycle: new Date(),
+            CycleDuration: 0,
+            flowDuration: 0,
+        }
     })
 
-    
-    function handleCreateNewCycle(data: NewCycleFormData){
+    function handleCreateNewCycle(data: NewCycleFormData) {
+
         const newCycle: Cycle = {
             lastCycle: data.lastCycle,
             CycleDuration: data.CycleDuration,
             flowDuration: data.flowDuration
         }
-        setCyles((state) => [...state, newCycle])
+
+        const expectedNextCycleDate = calculateExpectedNextCycleDate(data.lastCycle, data.CycleDuration);
+        console.log('Data prevista', format(expectedNextCycleDate, 'yyyy-MM-dd'));
+
+        setCycles([newCycle])
         reset()
-        console.log(newCycle)
+    }
+
+    function calculateExpectedNextCycleDate(lastCycle:Date, CycleDuration:number) {
+        const expectedNextCycleDate = addDays(lastCycle, CycleDuration);
+        return expectedNextCycleDate;
     }
 
     const CycleDuration = watch('CycleDuration')
-
     const isSubmitDisabled = !CycleDuration
 
     return (
@@ -65,34 +69,35 @@ export function Home() {
             <form onSubmit={handleSubmit(handleCreateNewCycle)}>
                 <FormContainer>
                     <InputContainer>
-                    <label htmlFor="lastCycle">Quando foi sua última menstruação?</label>
-                    <input 
-                    type="date" 
-                    id="lastCycle"
-                    {...register('lastCycle', {valueAsDate: true})}
-                    />
+                        <label htmlFor="lastCycle">Quando foi sua última menstruação?</label>
+                        <input
+                            type="date"
+                            id="lastCycle"
+                            required
+                            {...register('lastCycle', { valueAsDate: true })}
+                        />
 
                     </InputContainer>
                     <InputContainer>
                         <label htmlFor="CycleDuration">Duração média do ciclo (dias)</label>
                         <input
-                        type="number"
-                        id="CycleDuration"
-                        placeholder="28 dias..."
-                        min={21}
-                        max={45}
-                        {...register('CycleDuration', {valueAsNumber: true})}
+                            type="number"
+                            id="CycleDuration"
+                            placeholder="28 dias..."
+                            min={21}
+                            max={45}
+                            {...register('CycleDuration', { valueAsNumber: true })}
                         />
                     </InputContainer>
                     <InputContainer>
                         <label htmlFor="flowDuration">Quantos dias ela durou?</label>
                         <input
-                        type="number"
-                        id="flowDuration"
-                        placeholder="5 dias..."
-                        min={1}
-                        max={10}
-                        {...register('flowDuration', {valueAsNumber: true})}
+                            type="number"
+                            id="flowDuration"
+                            placeholder="5 dias..."
+                            min={1}
+                            max={10}
+                            {...register('flowDuration', { valueAsNumber: true })}
 
                         />
                     </InputContainer>
