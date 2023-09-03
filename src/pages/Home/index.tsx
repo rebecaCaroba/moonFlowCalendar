@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as zod from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from "react";
-import { addDays, format } from "date-fns";
+import { addDays, differenceInDays, format } from "date-fns";
 
 const newCycleFormValidationSchema = zod.object({
     lastCycle: zod.date(),
@@ -45,9 +45,10 @@ export function Home() {
             flowDuration: data.flowDuration
         }
 
-        const expectedNextCycleDate = calculateExpectedNextCycleDate(data.lastCycle, data.CycleDuration);
-        console.log('Data prevista', format(expectedNextCycleDate, 'yyyy-MM-dd'));
-
+        const expectedNextCycleDate = calculateExpectedNextCycleDate(data.lastCycle, data.CycleDuration)
+        const today = new Date()
+        const daysUntilNextCycle = differenceInDays(expectedNextCycleDate, today)
+        console.log('Data prevista', format(expectedNextCycleDate, 'yyyy-MM-dd'), 'Dias restantes',daysUntilNextCycle)
         setCycles([newCycle])
         reset()
     }
@@ -76,7 +77,6 @@ export function Home() {
                             required
                             {...register('lastCycle', { valueAsDate: true })}
                         />
-
                     </InputContainer>
                     <InputContainer>
                         <label htmlFor="CycleDuration">Duração média do ciclo (dias)</label>
