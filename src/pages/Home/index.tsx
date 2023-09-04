@@ -2,8 +2,8 @@ import { FormContainer, HomeContainer, InputContainer, TitleContainer } from "./
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from "react";
-import { addDays, differenceInDays, format } from "date-fns";
+import { useContext } from "react";
+import { CyclesContext } from "../../context/CyclesContext";
 
 const newCycleFormValidationSchema = zod.object({
     lastCycle: zod.date(),
@@ -19,14 +19,9 @@ const newCycleFormValidationSchema = zod.object({
 
 type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
 
-interface Cycle {
-    lastCycle: Date
-    CycleDuration: number
-    flowDuration: number
-}
 
 export function Home() {
-    const [cycles, setCycles] = useState<Cycle[]>([])
+    const {createNewCycle} = useContext(CyclesContext)
 
     const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
         resolver: zodResolver(newCycleFormValidationSchema),
@@ -38,24 +33,8 @@ export function Home() {
     })
 
     function handleCreateNewCycle(data: NewCycleFormData) {
-
-        const newCycle: Cycle = {
-            lastCycle: data.lastCycle,
-            CycleDuration: data.CycleDuration,
-            flowDuration: data.flowDuration
-        }
-
-        const expectedNextCycleDate = calculateExpectedNextCycleDate(data.lastCycle, data.CycleDuration)
-        const today = new Date()
-        const daysUntilNextCycle = differenceInDays(expectedNextCycleDate, today)
-        console.log('Data prevista', format(expectedNextCycleDate, 'yyyy-MM-dd'), 'Dias restantes',daysUntilNextCycle)
-        setCycles([newCycle])
+        createNewCycle(data)
         reset()
-    }
-
-    function calculateExpectedNextCycleDate(lastCycle:Date, CycleDuration:number) {
-        const expectedNextCycleDate = addDays(lastCycle, CycleDuration);
-        return expectedNextCycleDate;
     }
 
     const CycleDuration = watch('CycleDuration')
@@ -77,6 +56,7 @@ export function Home() {
                             required
                             {...register('lastCycle', { valueAsDate: true })}
                         />
+
                     </InputContainer>
                     <InputContainer>
                         <label htmlFor="CycleDuration">Duração média do ciclo (dias)</label>
