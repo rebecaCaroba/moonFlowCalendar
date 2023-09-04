@@ -1,7 +1,5 @@
 import { ReactNode, createContext, useState } from "react";
-import { addDays, differenceInDays, format } from "date-fns";
-
-
+import { addDays, differenceInDays } from "date-fns";
 type CreateNewCycleData = {
     lastCycle: Date;
     CycleDuration: number;
@@ -9,18 +7,19 @@ type CreateNewCycleData = {
 }
 
 interface Cycle {
+    id: number
     lastCycle: Date
     CycleDuration: number
     flowDuration: number
-    expectedNextCycleDate: Date | string
+    expectedNextCycleDate: Date
     daysUntilNextCycle: number
 }
 
 interface CyclesContextType {
     cycles: Cycle[]
     calculateDaysUntilNextCycle: (NextDate: Date) => number
-    calculateExpectedNextCycleDate: (lastCycle:Date, CycleDuration:number) => Date
-    createNewCycle: (data:CreateNewCycleData) => void
+    calculateExpectedNextCycleDate: (lastCycle: Date, CycleDuration: number) => Date
+    createNewCycle: (data: CreateNewCycleData) => void
 }
 
 export const CyclesContext = createContext({} as CyclesContextType)
@@ -29,20 +28,21 @@ interface CyclesContextProviderProps {
     children: ReactNode
 }
 
-export function CyclesContextProvider({ children }: CyclesContextProviderProps){
+export function CyclesContextProvider({ children }: CyclesContextProviderProps) {
     const [cycles, setCycles] = useState<Cycle[]>([])
 
     function createNewCycle(data: CreateNewCycleData) {
         const expectedNextCycleDate = calculateExpectedNextCycleDate(data.lastCycle, data.CycleDuration)
-        const formattedExpectedNextCycleDate = format(expectedNextCycleDate, 'yyyy-MM-dd')
         const daysUntilNextCycle = calculateDaysUntilNextCycle(expectedNextCycleDate)
-        
+
+
 
         const newCycle: Cycle = {
+            id: 1,
             lastCycle: data.lastCycle,
             CycleDuration: data.CycleDuration,
             flowDuration: data.flowDuration,
-            expectedNextCycleDate: formattedExpectedNextCycleDate,
+            expectedNextCycleDate,
             daysUntilNextCycle,
         }
 
@@ -54,19 +54,21 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps){
         return differenceInDays(NextDate, today)
     }
 
-    function calculateExpectedNextCycleDate(lastCycle:Date, CycleDuration:number): Date {
+    function calculateExpectedNextCycleDate(lastCycle: Date, CycleDuration: number): Date {
         const expectedNextCycleDate = addDays(lastCycle, CycleDuration);
         return expectedNextCycleDate;
     }
 
     return (
-        <CyclesContext.Provider 
-        value={
-            {cycles,    
-             calculateExpectedNextCycleDate, 
-             createNewCycle,
-             calculateDaysUntilNextCycle}
-        }>
+        <CyclesContext.Provider
+            value={
+                {
+                    cycles,
+                    calculateExpectedNextCycleDate,
+                    createNewCycle,
+                    calculateDaysUntilNextCycle
+                }
+            }>
             {children}
         </CyclesContext.Provider>
     )

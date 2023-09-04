@@ -26,3 +26,10 @@ export const WeeksGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(7, 1fr);
 `
+
+export const Maker = styled.div`
+    height: 0.685rem;
+    width: 100%;
+    color: ${(props) => props.theme['main-color']};
+
+`
