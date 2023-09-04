@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { CalendarApp } from "../../components/Calendar";
 import { CalendarContainer, CycleContainer, InfoCycle, MenstruationRecorderBtn, MoonContainer } from "./styles";
+import { CyclesContext } from "../../context/CyclesContext";
 
 export function MoonFlow() {
+    const { cycles } = useContext(CyclesContext)
     return (
         <CalendarContainer>
             <div>
@@ -9,9 +12,16 @@ export function MoonFlow() {
                 <MenstruationRecorderBtn type="button">
                     <span>Registrar menstruação</span>
                 </MenstruationRecorderBtn>
-                    <InfoCycle>
-                        <span>9</span>dias até a menstruação
-                    </InfoCycle>
+                        {cycles.map((cycle) => {
+                            if(cycle.daysUntilNextCycle){
+                                return (
+                                <InfoCycle>
+                                    <span>{cycle.daysUntilNextCycle}</span>
+                                    dias até a menstrução
+                                </InfoCycle>
+                                )
+                            }
+                        })}
                     <MoonContainer></MoonContainer>
                 </CycleContainer>
             </div>
