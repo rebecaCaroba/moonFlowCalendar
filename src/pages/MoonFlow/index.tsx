@@ -5,6 +5,7 @@ import { CyclesContext } from "../../context/CyclesContext";
 
 export function MoonFlow() {
     const { cycles } = useContext(CyclesContext)
+    
     return (
         <CalendarContainer>
             <div>
@@ -12,10 +13,10 @@ export function MoonFlow() {
                 <MenstruationRecorderBtn type="button">
                     <span>Registrar menstruação</span>
                 </MenstruationRecorderBtn>
-                        {cycles.map((cycle) => {
+                        {cycles.map((cycle, key) => {
                             if(cycle.daysUntilNextCycle){
                                 return (
-                                <InfoCycle>
+                                <InfoCycle key={key}>
                                     <span>{cycle.daysUntilNextCycle}</span>
                                     dias até a menstrução
                                 </InfoCycle>

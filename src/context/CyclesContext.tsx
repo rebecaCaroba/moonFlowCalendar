@@ -13,6 +13,7 @@ interface Cycle {
     flowDuration: number
     expectedNextCycleDate: Date
     daysUntilNextCycle: number
+    endDayNextCycle: Date
 }
 
 interface CyclesContextType {
@@ -34,8 +35,7 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
     function createNewCycle(data: CreateNewCycleData) {
         const expectedNextCycleDate = calculateExpectedNextCycleDate(data.lastCycle, data.CycleDuration)
         const daysUntilNextCycle = calculateDaysUntilNextCycle(expectedNextCycleDate)
-
-
+        const endDayNextCycle = calculateEndDayNextCycle(expectedNextCycleDate, data.flowDuration)
 
         const newCycle: Cycle = {
             id: 1,
@@ -44,11 +44,16 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
             flowDuration: data.flowDuration,
             expectedNextCycleDate,
             daysUntilNextCycle,
+            endDayNextCycle,
         }
 
         setCycles([newCycle])
     }
 
+    function calculateEndDayNextCycle(NextDate:Date, Flow:number): Date{
+        return addDays(NextDate, Flow)
+    }
+    
     function calculateDaysUntilNextCycle(NextDate: Date) {
         const today = new Date()
         return differenceInDays(NextDate, today)
