@@ -28,7 +28,7 @@ export function MoonFlow() {
                                 }else {
                                     return (
                                     <InfoCycle key={key}>
-                                        <span>{Math.abs(cycle.daysUntilNextCycle)+1}</span>
+                                        <span>{cycle.daysUntilNextCycle+1}</span>
                                         dias até a menstrução
                                     </InfoCycle>
                                     )
