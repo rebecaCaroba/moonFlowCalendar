@@ -9,9 +9,7 @@ export function MoonFlow() {
     
     return (
         <CalendarContainer>
-            <div>
                 <CycleContainer>
-
                         {cycles.map((cycle, key) => {
                             if(cycle.isCycleCompleted == true) {
                                 return (
@@ -39,7 +37,6 @@ export function MoonFlow() {
                         )}
                     <MoonContainer></MoonContainer>
                 </CycleContainer>
-            </div>
             <div>
                 <CalendarApp />
             </div>

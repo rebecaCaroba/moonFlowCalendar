@@ -5,6 +5,9 @@ export const CalendarContainer = styled.div`
     align-items: center;
     justify-content: space-around;
     margin: 4rem 0;
+    gap: 2rem;
+    flex-wrap: wrap;
+    
 `
 
 export const CycleContainer = styled.div`
@@ -17,9 +20,9 @@ export const CycleContainer = styled.div`
 `
 
 export const MoonContainer = styled.div`
-    width: 250px;
+    width: 15.625rem;
     background: ${(props) => props.theme['secundary-color']};
-    height: 250px;
+    height: 15.625rem;
     border-radius: 100%; 
 `
 
@@ -30,8 +33,8 @@ export const InfoCycle = styled.div`
     flex-direction: column;
     position: absolute;
     background: ${(props) => props.theme['gray-500']};
-    width: 190px;
-    height: 190px;
+    width: 11.875rem;
+    height: 11.875rem;
     border-radius: 100%;
     top: 4%;
     right: 30%;

@@ -50,10 +50,10 @@ export const TitleContainer = styled.div`
 
 export const FormContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin: 20px;
+  justify-content: center;
+  align-items: center;
 `
 
 
@@ -81,6 +81,15 @@ export const InputContainer = styled.div`
   label {
     display: block;
     margin-bottom: 5px;
+  }
+
+  @media (max-width: 700px) {
+    width: 100%;
+    margin-bottom: 0.313rem;
+
+    label {
+      text-align: left;
+    }
   }
 
 `
