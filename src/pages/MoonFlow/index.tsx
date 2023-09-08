@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { CalendarApp } from "../../components/Calendar";
 import { CalendarContainer, CycleContainer, InfoCycle, MenstruationRecorderBtn, MoonContainer } from "./styles";
 import { CyclesContext } from "../../context/CyclesContext";
+import { HiMoon } from "react-icons/hi";
 
 export function MoonFlow() {
     const { cycles } = useContext(CyclesContext)
@@ -14,13 +15,29 @@ export function MoonFlow() {
                     <span>Registrar menstruação</span>
                 </MenstruationRecorderBtn>
                         {cycles.map((cycle, key) => {
-                            if(cycle.daysUntilNextCycle){
+                            if(cycle.isCycleCompleted == true) {
                                 return (
-                                <InfoCycle key={key}>
-                                    <span>{cycle.daysUntilNextCycle}</span>
-                                    dias até a menstrução
-                                </InfoCycle>
-                                )
+                                    <InfoCycle key={key}>
+                                        <span><HiMoon size={24} /></span>
+                                        Ciclo completo
+                                    </InfoCycle>
+                                    )
+                            }else {
+                                if(cycle.daysUntilNextCycle < 0){
+                                    return (
+                                    <InfoCycle key={key}>
+                                        <span>{Math.abs(cycle.daysUntilNextCycle)+1}º</span>
+                                        dia da menstruação
+                                    </InfoCycle>
+                                    )
+                                }else {
+                                    return (
+                                    <InfoCycle key={key}>
+                                        <span>{Math.abs(cycle.daysUntilNextCycle)+1}</span>
+                                        dias até a menstrução
+                                    </InfoCycle>
+                                    )
+                                }  
                             }
                         })}
                     <MoonContainer></MoonContainer>

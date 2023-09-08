@@ -14,6 +14,7 @@ interface Cycle {
     expectedNextCycleDate: Date
     daysUntilNextCycle: number
     endDayNextCycle: Date
+    isCycleCompleted: boolean
 }
 
 interface CyclesContextType {
@@ -37,6 +38,8 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
         const daysUntilNextCycle = calculateDaysUntilNextCycle(expectedNextCycleDate)
         const endDayNextCycle = calculateEndDayNextCycle(expectedNextCycleDate, data.flowDuration)
 
+        const isCycleCompleted = endDayNextCycle <= new Date()
+
         const newCycle: Cycle = {
             id: 1,
             lastCycle: data.lastCycle,
@@ -45,6 +48,7 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
             expectedNextCycleDate,
             daysUntilNextCycle,
             endDayNextCycle,
+            isCycleCompleted,
         }
 
         setCycles([newCycle])
