@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { CalendarApp } from "../../components/Calendar";
-import { CalendarContainer, CycleContainer, InfoCycle, MenstruationRecorderBtn, MoonContainer } from "./styles";
+import { CalendarContainer, CycleContainer, InfoCycle, MoonContainer } from "./styles";
 import { CyclesContext } from "../../context/CyclesContext";
 import { HiMoon } from "react-icons/hi";
 
@@ -11,9 +11,7 @@ export function MoonFlow() {
         <CalendarContainer>
             <div>
                 <CycleContainer>
-                <MenstruationRecorderBtn type="button">
-                    <span>Registrar menstruação</span>
-                </MenstruationRecorderBtn>
+
                         {cycles.map((cycle, key) => {
                             if(cycle.isCycleCompleted == true) {
                                 return (
@@ -22,8 +20,7 @@ export function MoonFlow() {
                                         Ciclo completo
                                     </InfoCycle>
                                     )
-                            }else {
-                                if(cycle.daysUntilNextCycle < 0){
+                            }else if(cycle.daysUntilNextCycle < 0){
                                     return (
                                     <InfoCycle key={key}>
                                         <span>{Math.abs(cycle.daysUntilNextCycle)+1}º</span>
@@ -39,7 +36,7 @@ export function MoonFlow() {
                                     )
                                 }  
                             }
-                        })}
+                        )}
                     <MoonContainer></MoonContainer>
                 </CycleContainer>
             </div>

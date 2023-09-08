@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import { IoMdWater } from 'react-icons/io';
 import { CyclesContext } from "../../context/CyclesContext";
-import { Mark } from "./styles";
+import { Mark, CalendarCustom } from "./styles";
 
 type ValuePiece = Date | null;
 
@@ -14,7 +14,8 @@ export function CalendarApp() {
     const { cycles } = useContext(CyclesContext)
 
     return (
-        <Calendar 
+        <CalendarCustom>
+            <Calendar 
             tileContent={({ date, view }) => {
                 const marks = cycles.map((cycle, key) => {
                     if (view === 'month' && date >= cycle.expectedNextCycleDate && date <= cycle.endDayNextCycle) {
@@ -28,5 +29,6 @@ export function CalendarApp() {
             onChange={onChange} 
             value={value} 
         />
+        </CalendarCustom>
     )
 }
