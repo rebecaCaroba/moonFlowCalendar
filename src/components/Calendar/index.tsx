@@ -13,6 +13,9 @@ export function CalendarApp() {
     const [value, onChange] = useState<Value>(new Date())
     const { cycles } = useContext(CyclesContext)
 
+    const firstCycle = cycles[0]
+    const initialMonth = firstCycle ? new Date(firstCycle.expectedNextCycleDate) : new Date()
+
     return (
         <CalendarCustom>
             <Calendar 
@@ -22,12 +25,14 @@ export function CalendarApp() {
                         return <Mark key={key}><IoMdWater size={20}/></Mark>
                     }
                     return null
-                });
+                })
 
                 return marks.length > 0 ? marks : null
             }}
             onChange={onChange} 
             value={value} 
+            view={"month"}
+            activeStartDate={initialMonth}
         />
         </CalendarCustom>
     )

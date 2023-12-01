@@ -14,7 +14,8 @@ export const HomeContainer = styled.div`
     align-items: center;
     gap: 2.5rem;
   }
-
+  
+ 
   button {
         background: ${(props) => props.theme['secundary-color']};
         color: ${(props) => props.theme['white']};

@@ -1,9 +1,10 @@
-import { FormContainer, HomeContainer, InputContainer, TitleContainer } from "./styles";
+import { HomeContainer, FormContainer, InputContainer, TitleContainer } from "./styles";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CyclesContext } from "../../context/CyclesContext";
+import { MoonFlow } from "../MoonFlow";
 
 const newCycleFormValidationSchema = zod.object({
     lastCycle: zod.date(),
@@ -19,8 +20,8 @@ const newCycleFormValidationSchema = zod.object({
 
 type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
 
-
 export function Home() {
+    const [showCalendar, setShowCalendar] = useState(false)
     const {createNewCycle} = useContext(CyclesContext)
 
     const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
@@ -34,14 +35,24 @@ export function Home() {
 
     function handleCreateNewCycle(data: NewCycleFormData) {
         createNewCycle(data)
+        showCalendarFunction()
         reset()
+    }
+
+    function showCalendarFunction() {
+        setTimeout(() => {
+            setShowCalendar(true)
+        }, 2000)
     }
 
     const CycleDuration = watch('CycleDuration')
     const isSubmitDisabled = !CycleDuration
-
     return (
-        <HomeContainer>
+        <>
+            {showCalendar ? 
+                <MoonFlow />
+                :
+                <HomeContainer>
             <TitleContainer>
                 Bem-vinda a
                 <span> MoonFlow Calendar!</span>
@@ -59,13 +70,14 @@ export function Home() {
 
                     </InputContainer>
                     <InputContainer>
-                        <label htmlFor="CycleDuration">Duração média do ciclo (dias)</label>
+                        <label htmlFor="CycleDuration">Duração média de cada ciclo(28 dias)</label>
                         <input
                             type="number"
                             id="CycleDuration"
                             placeholder="28 dias..."
                             min={21}
                             max={45}
+                            required
                             {...register('CycleDuration', { valueAsNumber: true })}
                         />
                     </InputContainer>
@@ -77,15 +89,18 @@ export function Home() {
                             placeholder="5 dias..."
                             min={1}
                             max={10}
+                            required
                             {...register('flowDuration', { valueAsNumber: true })}
 
                         />
                     </InputContainer>
                 </FormContainer>
                 <button disabled={isSubmitDisabled} type="submit">
-                    Calcular ciclo
+                    Prever Próximo Ciclo
                 </button>
             </form>
         </HomeContainer>
+            }
+        </>
     )
 }
