@@ -23,6 +23,7 @@ type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
 export function Home() {
     const [showCalendar, setShowCalendar] = useState(false)
     const {createNewCycle} = useContext(CyclesContext)
+    const [sending, setSending] = useState(false)
 
     const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
         resolver: zodResolver(newCycleFormValidationSchema),
@@ -40,6 +41,7 @@ export function Home() {
     }
 
     function showCalendarFunction() {
+        setSending(true)
         setTimeout(() => {
             setShowCalendar(true)
         }, 2000)
@@ -96,7 +98,7 @@ export function Home() {
                     </InputContainer>
                 </FormContainer>
                 <button disabled={isSubmitDisabled} type="submit">
-                    Prever Próximo Ciclo
+                    {sending ? 'Enviando...': 'Prever Próximo ciclo'}                    
                 </button>
             </form>
         </HomeContainer>

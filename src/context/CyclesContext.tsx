@@ -52,6 +52,8 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
         }
 
         setCycles([newCycle])
+
+        
     }
 
     function calculateEndDayNextCycle(NextDate:Date, Flow:number): Date{
