@@ -32,7 +32,7 @@ export function CalendarApp() {
             onChange={onChange} 
             value={value} 
             view={"month"}
-            activeStartDate={initialMonth}
+            defaultActiveStartDate={initialMonth}
         />
         </CalendarCustom>
     )
