@@ -29,8 +29,6 @@ export function Home() {
         resolver: zodResolver(newCycleFormValidationSchema),
         defaultValues: {
             lastCycle: new Date(),
-            CycleDuration: 0,
-            flowDuration: 0,
         }
     })
 
@@ -72,7 +70,7 @@ export function Home() {
 
                     </InputContainer>
                     <InputContainer>
-                        <label htmlFor="CycleDuration">Duração média de cada ciclo(28 dias)</label>
+                        <label htmlFor="CycleDuration">Duração média de cada ciclo</label>
                         <input
                             type="number"
                             id="CycleDuration"

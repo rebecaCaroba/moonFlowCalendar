@@ -6,13 +6,13 @@ export const HomeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5rem;
+  gap: 4rem;
 
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2.5rem;
+    gap: 1rem;
   }
   
  
@@ -22,7 +22,7 @@ export const HomeContainer = styled.div`
         border: 0;
         outline: none;
         border-radius: 8px;
-        width: 50%;
+        width: 100%;
         height: 3.125rem;
         font-size: 1.25rem;
         font-weight: 700;
@@ -36,11 +36,12 @@ export const HomeContainer = styled.div`
 `
 
 export const TitleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  text-align: center;
   align-items: center;
   font-weight: 300;
   font-size: 2rem;
+  margin-top: 1rem;
+  max-width: 300px; 
 
   span {
       font-weight: 500;
@@ -60,8 +61,7 @@ export const FormContainer = styled.div`
 
 export const InputContainer = styled.div`
   text-align: center;
-  margin-right: 10px;
-
+  
   input {
       padding: 20px;
       background: ${(props) => props.theme['main-color']};
@@ -74,6 +74,11 @@ export const InputContainer = styled.div`
       font-size: 1rem;
   }
 
+  &:nth-child(2) {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
   input::placeholder {
   color: ${(props) => props.theme['white']};
   opacity: 50%;
@@ -84,9 +89,14 @@ export const InputContainer = styled.div`
     margin-bottom: 5px;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 728px) {
     width: 100%;
-    margin-bottom: 0.313rem;
+    margin-bottom: 1.5rem;
+
+    &:nth-child(2) {
+      margin-right: 0;
+      margin-left: 0;
+    }
 
     label {
       text-align: left;

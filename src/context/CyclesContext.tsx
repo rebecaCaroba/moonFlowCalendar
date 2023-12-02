@@ -9,8 +9,8 @@ type CreateNewCycleData = {
 interface Cycle {
     id: number
     lastCycle: Date
-    CycleDuration: number
-    flowDuration: number
+    CycleDuration: number | null
+    flowDuration: number | null
     expectedNextCycleDate: Date
     daysUntilNextCycle: number
     endDayNextCycle: Date
