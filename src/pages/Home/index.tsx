@@ -96,7 +96,7 @@ export function Home() {
                     </InputContainer>
                 </FormContainer>
                 <button disabled={isSubmitDisabled} type="submit">
-                    {sending ? 'Enviando...': 'Prever Próximo ciclo'}                    
+                    {sending ? 'Calculando...': 'Prever próximo ciclo'}                    
                 </button>
             </form>
         </HomeContainer>

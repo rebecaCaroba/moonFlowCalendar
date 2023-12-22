@@ -21,7 +21,6 @@ export const HomeContainer = styled.div`
         color: ${(props) => props.theme['white']};
         border: 0;
         outline: none;
-        border-radius: 8px;
         width: 100%;
         height: 3.125rem;
         font-size: 1.25rem;
@@ -56,11 +55,15 @@ export const FormContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  gap: 12px;
 `
-
 
 export const InputContainer = styled.div`
   text-align: center;
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+  }
   
   input {
       padding: 20px;
@@ -68,15 +71,9 @@ export const InputContainer = styled.div`
       color: ${(props) => props.theme['white']};
       border: 0;
       outline: none;
-      border-radius: 8px;
       width: 100%;
       height: 3.125rem;
       font-size: 1rem;
-  }
-
-  &:nth-child(2) {
-    margin-right: 10px;
-    margin-left: 10px;
   }
 
   input::placeholder {
@@ -92,11 +89,6 @@ export const InputContainer = styled.div`
   @media (max-width: 728px) {
     width: 100%;
     margin-bottom: 1.5rem;
-
-    &:nth-child(2) {
-      margin-right: 0;
-      margin-left: 0;
-    }
 
     label {
       text-align: left;
