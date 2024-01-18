@@ -11,7 +11,6 @@ export function MoonFlow() {
         <CalendarContainer>
                 <CycleContainer>
                         {cycles.map((cycle, key) => {
-                            console.log(cycle)
                             if(cycle.isCycleCompleted == true) {
                                 return (
                                     <InfoCycle key={key}>
@@ -20,14 +19,22 @@ export function MoonFlow() {
                                     </InfoCycle>
                                     )
                                 } else
-                                if(cycle.daysUntilNextCycle <= 0){
+                                if(cycle.daysUntilNextCycle < 0){
                                     return (
                                     <InfoCycle key={key}>
                                         <span>{Math.abs(cycle.daysUntilNextCycle)+1}º</span>
                                         dia da menstruação
                                     </InfoCycle>
                                     )
-                                }else {
+                                }else if(cycle.daysUntilNextCycle === 0){
+                                    return (
+                                        <InfoCycle key={key}>
+                                            <span>Último</span>
+                                            dia até a menstruação
+                                        </InfoCycle>
+                                        )
+                                }
+                                else {
                                     return (
                                     <InfoCycle key={key}>
                                         <span>{cycle.daysUntilNextCycle+1}</span>
